@@ -69,5 +69,14 @@ public class TamperCheck {
         return false;
     }
 
+    public String getAppSignature(Context context) {
+        try {
+            Signature sig = context.getPackageManager().getPackageInfo(context.getPackageName(), PackageManager.GET_SIGNATURES).signatures[0];
+            return getSHA1(sig.toByteArray());
+        } catch (Exception e) {
+            return APP_SIGNATURE;
+        }
+    }
+
 
 }

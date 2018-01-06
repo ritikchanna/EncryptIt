@@ -1,12 +1,14 @@
 package ritik.encryptit;
 
 import android.content.Context;
+import android.os.Environment;
 import android.util.Log;
 
 import com.google.gson.Gson;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -14,6 +16,7 @@ import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
@@ -76,6 +79,43 @@ public class FileHelper {
         cis.close();
     }
 
+    public static void encrypt_final(Context context) throws IOException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException {
+        Calendar calendar = Calendar.getInstance();
+        byte[] key = (new TamperCheck().getAppSignature(context) + new Constants().key).getBytes("UTF-8");
+        MessageDigest sha = MessageDigest.getInstance("SHA-1");
+        key = sha.digest(key);
+        key = Arrays.copyOf(key, 16);
+        SecretKeySpec sks = new SecretKeySpec(key, "AES");
+        Cipher cipher = Cipher.getInstance("AES");
+        cipher.init(Cipher.ENCRYPT_MODE, sks);
+//todo handle if directory not created
+        File file = new File(Environment.getExternalStorageDirectory(), context.getResources().getString(R.string.app_name));
+        if (!file.mkdirs()) {
+            Log.e("Ritik", "Directory not created");
+        }
+
+
+        CipherOutputStream cos = new CipherOutputStream(new FileOutputStream(Environment.getExternalStorageDirectory().getPath() + "/" + context.getResources().getString(R.string.app_name) + "/" + calendar.getTime().toString() + new Constants().format), cipher);
+        int b;
+        byte[] d = new byte[8];
+        FileInputStream fileInputStream = context.openFileInput("temp");
+        while ((b = fileInputStream.read(d)) != -1) {
+            cos.write(d, 0, b);
+        }
+        cos.flush();
+        cos.close();
+        fileInputStream.close();
+    }
+
+    public static void cleanup(Context context) {
+
+
+        context.deleteFile("temp");
+        context.deleteFile(".config");
+        context.deleteFile("file_main");
+
+
+    }
 
     public void gen_config_file(config config) throws IOException {
 
@@ -110,7 +150,6 @@ public class FileHelper {
         out.close();
 
     }
-
 
     public void unzip(FileInputStream fileInputStream, FileOutputStream fileOutputStream, int file) throws IOException {
 

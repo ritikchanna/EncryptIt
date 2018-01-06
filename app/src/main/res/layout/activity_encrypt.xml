@@ -6,4 +6,159 @@
     android:layout_height="match_parent"
     tools:context="ritik.encryptit.EncryptActivity">
 
+    <EditText
+        android:id="@+id/en_filename_et"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="8dp"
+        android:ems="50"
+        android:inputType="none"
+        app:layout_constraintBottom_toBottomOf="@+id/en_name_tv"
+        app:layout_constraintStart_toEndOf="@+id/en_name_tv"
+        app:layout_constraintTop_toTopOf="@+id/en_name_tv"
+        app:layout_constraintVertical_bias="0.62" />
+
+    <EditText
+        android:id="@+id/en_password_et"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="8dp"
+        android:ems="50"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toBottomOf="@+id/en_password_tv"
+        app:layout_constraintStart_toEndOf="@+id/en_password_tv"
+        app:layout_constraintTop_toTopOf="@+id/en_password_tv"
+        app:layout_constraintVertical_bias="0.612" />
+
+    <EditText
+        android:id="@+id/en_verify_password_et"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:ems="50"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toBottomOf="@+id/en_verify_password_tv"
+        app:layout_constraintStart_toEndOf="@+id/en_verify_password_tv"
+        app:layout_constraintTop_toTopOf="@+id/en_verify_password_tv"
+        app:layout_constraintVertical_bias="0.551" />
+
+    <TextView
+        android:id="@+id/en_name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="40dp"
+        android:text="FileName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/en_password_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="17dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
+        android:text="Password"
+        app:layout_constraintEnd_toEndOf="@+id/en_name_tv"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="@+id/en_name_tv"
+        app:layout_constraintTop_toBottomOf="@+id/en_filename_et" />
+
+    <TextView
+        android:id="@+id/en_verify_password_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
+        android:text="Verify Password"
+        app:layout_constraintEnd_toEndOf="@+id/en_password_tv"
+        app:layout_constraintStart_toStartOf="@+id/en_password_tv"
+        app:layout_constraintTop_toBottomOf="@+id/en_password_et" />
+
+    <TextView
+        android:id="@+id/en_burn_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
+        android:text="Burn"
+        app:layout_constraintEnd_toEndOf="@+id/en_verify_password_tv"
+        app:layout_constraintStart_toStartOf="@+id/en_verify_password_tv"
+        app:layout_constraintTop_toBottomOf="@+id/en_verify_password_et" />
+
+    <CheckBox
+        android:id="@+id/en_burn_cb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="8dp"
+        android:text="Disabled"
+        app:layout_constraintBottom_toBottomOf="@+id/en_burn_tv"
+        app:layout_constraintStart_toEndOf="@+id/en_burn_tv"
+        app:layout_constraintTop_toTopOf="@+id/en_burn_tv"
+        app:layout_constraintVertical_bias="0.714" />
+
+    <EditText
+        android:id="@+id/en_burn_time_et"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:ems="10"
+        android:inputType="number"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/en_burn_cb"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/en_burn_cb"
+        app:layout_constraintTop_toBottomOf="@+id/en_burn_cb" />
+
+    <TextView
+        android:id="@+id/en_savable_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
+        android:text="Savable"
+        app:layout_constraintEnd_toEndOf="@+id/en_burn_tv"
+        app:layout_constraintStart_toStartOf="@+id/en_burn_tv"
+        app:layout_constraintTop_toBottomOf="@+id/en_burn_time_et" />
+
+    <TextView
+        android:id="@+id/en_expire_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
+        android:text="ValidTill"
+        app:layout_constraintEnd_toEndOf="@+id/en_savable_tv"
+        app:layout_constraintStart_toStartOf="@+id/en_savable_tv"
+        app:layout_constraintTop_toBottomOf="@+id/en_savable_cb" />
+
+    <CheckBox
+        android:id="@+id/en_savable_cb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="8dp"
+        android:text="Disabled"
+        app:layout_constraintBottom_toBottomOf="@+id/en_savable_tv"
+        app:layout_constraintStart_toEndOf="@+id/en_savable_tv"
+        app:layout_constraintTop_toTopOf="@+id/en_savable_tv"
+        app:layout_constraintVertical_bias="0.38" />
+
+    <Button
+        android:id="@+id/en_encryptit_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/transparent"
+        android:text="EncryptIt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/en_expire_tv" />
 </android.support.constraint.ConstraintLayout>

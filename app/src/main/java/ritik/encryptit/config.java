@@ -15,6 +15,14 @@ public class config {
 
     }
 
+    config(Boolean savable, int burn_time, double valid_time, int password_type, String format_orignal) {
+        this.savable = savable;
+        this.burn_time = burn_time;
+        this.valid_time = valid_time;
+        this.password_type = password_type;
+        this.format_orignal = format_orignal;
+    }
+
     public Boolean getSavable() {
         return savable;
     }

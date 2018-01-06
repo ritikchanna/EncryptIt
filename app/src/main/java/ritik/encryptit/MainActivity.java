@@ -30,11 +30,12 @@ public class MainActivity extends Activity {
         FileHelper helper = new FileHelper(MainActivity.this);
         URIhelper urIhelper = new URIhelper();
         Intent intent = getIntent();
+        Log.d("Ritik", "Signature is : " + new TamperCheck().getAppSignature(MainActivity.this));
         if (Intent.ACTION_SEND.equals(intent.getAction())) {
             Uri uri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
             if (uri != null) {
                 try {
-                    EncorDec(uri, urIhelper.getfilename(urIhelper.getFilePath(MainActivity.this, uri)));
+                    EncorDec(urIhelper.getFilePath(MainActivity.this, uri), urIhelper.getfilename(urIhelper.getFilePath(MainActivity.this, uri)));
                 } catch (Exception e) {
 
                 }
@@ -43,33 +44,8 @@ public class MainActivity extends Activity {
         }
         //TODO handle onpermission
         ActivityCompat.requestPermissions(MainActivity.this,
-                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
                 1);
-        try {
-//            config config=new config();
-//            config.setBurn_time(100);
-//            config.setFormat_orignal(".jpg");
-//            config.setPassword_type(0);
-//            config.setSavable(false);
-//            config.setValid_time(142115);
-//            FileOutputStream fos=this.openFileOutput("file_main", Context.MODE_PRIVATE);
-//            helper.encryptfile(new FileInputStream("/sdcard/1.jpg"),fos,"1234567890123456","Ritik1234");
-//            helper.gen_config_file(config);
-//            FileInputStream[] files=new FileInputStream[2];
-//            files[0]=this.openFileInput(".config");
-//            files[1]=this.openFileInput("file_main");
-//            fos=this.openFileOutput("zipped",Context.MODE_PRIVATE);
-//            helper.zip(files,fos);
-
-
-            //helper.decrypt(new FileOutputStream("/sdcard/dec.jpg"),new FileInputStream("/sdcard/file1"),"1234567890123456","Ritik1234");
-            //TODO encrypt final file with keystore
-
-
-        } catch (Exception e) {
-            Log.e("Ritik", "Exception: " + e.getStackTrace() + e.getMessage());
-            e.printStackTrace();
-        }
 
 
         button = (Button) findViewById(R.id.button);
@@ -106,21 +82,22 @@ public class MainActivity extends Activity {
             List<Uri> files = Utils.getSelectedFilesFromResult(intent);
             for (Uri uri : files) {
                 File file = Utils.getFileForUri(uri);
-                EncorDec(uri, file.getName());
+                EncorDec(file.getPath(), file.getName());
             }
         }
     }
 
 
-    protected void EncorDec(Uri uri, String File_name) {
+    protected void EncorDec(String path, String File_name) {
         Intent intent;
-        //TODO replace .myformat
-        if (File_name.contains(".myformat")) {
+        Log.d("Ritik", "EncorDec: Path is " + path);
+
+        if (File_name.contains(new Constants().format)) {
             intent = new Intent(MainActivity.this, DecryptActivity.class);
         } else {
             intent = new Intent(MainActivity.this, EncryptActivity.class);
         }
-        intent.putExtra("URI", uri);
+        intent.putExtra("Path", path);
         intent.putExtra("File", File_name);
         startActivity(intent);
         finish();
